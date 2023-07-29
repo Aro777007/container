@@ -3,28 +3,28 @@
 using namespace std;
 
 template <typename T>
-class arrayy
+class vector
 {
     T* arr = nullptr;
     int size = 0;
     int capacity = 0;
 
 public:
-    arrayy() {}
+    vector() {}
 
-    arrayy(int size)
+    vector(int size)
     {
         this->size = size;
         arr = new T[size];
     }
 
-    arrayy(const arrayy& obj)
+    vector(const vector& obj)
     {
         this->size = obj.size;
         arr = new T[size];
     }
 
-    arrayy& operator=(const arrayy& obj)
+    vector& operator=(const vector& obj)
     {
         if (this != &obj)
         {
@@ -35,7 +35,7 @@ public:
         return *this;
     }
 
-    arrayy(arrayy&& obj) noexcept
+    vector(vector&& obj) noexcept
     {
         size = obj.size;
         arr = obj.arr;
@@ -43,7 +43,7 @@ public:
         obj.arr = nullptr;
     }
 
-    arrayy& operator=(arrayy&& obj) noexcept
+    vector& operator=(vector&& obj) noexcept
     {
         if (this != &obj)
         {
@@ -115,7 +115,7 @@ public:
         cout << endl;
     }
 
-    void insert(int index,const T& value)
+    void insert(int index, const T& value)
     {
         if (index < 0 || index > size)
         {
@@ -184,7 +184,7 @@ public:
         cout << endl;
     }
 
-    ~arrayy()
+    ~vector()
     {
         delete[] arr;
     }
@@ -198,8 +198,8 @@ int main()
     int size = 6;
 
 
-    arrayy<int> a(size);
-    arrayy<int> obj1 = a;
+    vector<int> a(size);
+    vector<int> obj1 = a;
     a.get_element();
 
     a.push_back(2);
@@ -207,9 +207,9 @@ int main()
     a.insert(2, 3);
     a.erase(1);
 
-    arrayy<int> obj = std::move(a);
-    arrayy<int> b;
-    b = std::move(arrayy<int>(2));
+    vector<int> obj = std::move(a);
+    vector<int> b;
+    b = std::move(vector<int>(2));
 
     return 0;
 }
