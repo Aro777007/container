@@ -1,0 +1,215 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename T>
+class arrayy
+{
+    T* arr = nullptr;
+    int size = 0;
+    int capacity = 0;
+
+public:
+    arrayy() {}
+
+    arrayy(int size)
+    {
+        this->size = size;
+        arr = new T[size];
+    }
+
+    arrayy(const arrayy& obj)
+    {
+        this->size = obj.size;
+        arr = new T[size];
+    }
+
+    arrayy& operator=(const arrayy& obj)
+    {
+        if (this != &obj)
+        {
+            delete[] arr;
+            this->size = obj.size;
+            arr = new T[size];
+        }
+        return *this;
+    }
+
+    arrayy(arrayy&& obj) noexcept
+    {
+        size = obj.size;
+        arr = obj.arr;
+        obj.size = 0;
+        obj.arr = nullptr;
+    }
+
+    arrayy& operator=(arrayy&& obj) noexcept
+    {
+        if (this != &obj)
+        {
+            delete[] arr;
+            size = obj.size;
+            arr = obj.arr;
+            obj.size = 0;
+            obj.arr = nullptr;
+        }
+        return *this;
+    }
+
+    void get_element()
+    {
+        for (int i = 0; i < size; ++i)
+        {
+            arr[i] = 1;
+            cout << arr[i];
+        }
+        cout << endl;
+    }
+
+    void push_back(const T& value) noexcept
+    {
+        if (size == capacity)
+        {
+            int newCapacity;
+            if (capacity == 0)
+            {
+                newCapacity = 1;
+            }
+            else
+            {
+                newCapacity = capacity * 2;
+            }
+            T* newarr = new T[newCapacity];
+
+            for (int i = 0; i < size; ++i)
+            {
+                newarr[i] = arr[i];
+            }
+
+            delete[] arr;
+            arr = newarr;
+            capacity = newCapacity;
+        }
+
+        arr[size] = value;
+        ++size;
+
+        for (int i = 0; i < size; ++i)
+        {
+            cout << arr[i];
+        }
+        cout << endl;
+    }
+
+    void pop_back()
+    {
+        if (size > 0)
+        {
+            --size;
+        }
+
+        for (int i = 0; i < size; ++i)
+        {
+            cout << arr[i];
+        }
+        cout << endl;
+    }
+
+    void insert(int index,const T& value)
+    {
+        if (index < 0 || index > size)
+        {
+            cout << "error" << endl;
+            return;
+        }
+
+        if (size == capacity)
+        {
+            int newCapacity;
+            if (capacity == 0)
+            {
+                newCapacity = 1;
+            }
+            else
+            {
+                newCapacity = capacity * 2;
+            }
+            T* newarr = new T[newCapacity];
+
+            for (int i = 0; i < size; ++i)
+            {
+                newarr[i] = arr[i];
+            }
+
+            delete[] arr;
+            arr = newarr;
+            capacity = newCapacity;
+        }
+
+
+        for (int i = size; i > index; --i)
+        {
+            arr[i] = arr[i - 1];
+        }
+
+        arr[index] = value;
+        ++size;
+
+
+        for (int i = 0; i < size; ++i)
+        {
+            cout << arr[i];
+        }
+        cout << endl;
+    }
+
+    void erase(int index)
+    {
+        if (index < 0 || index >= size)
+        {
+            cout << "error" << endl;
+            return;
+        }
+
+        for (int i = index; i < size - 1; ++i)
+        {
+            arr[i] = arr[i + 1];
+        }
+        --size;
+
+        for (int i = 0; i < size; ++i)
+        {
+            cout << arr[i];
+        }
+        cout << endl;
+    }
+
+    ~arrayy()
+    {
+        delete[] arr;
+    }
+
+
+
+};
+
+int main()
+{
+    int size = 6;
+
+
+    arrayy<int> a(size);
+    arrayy<int> obj1 = a;
+    a.get_element();
+
+    a.push_back(2);
+    a.pop_back();
+    a.insert(2, 3);
+    a.erase(1);
+
+    arrayy<int> obj = std::move(a);
+    arrayy<int> b;
+    b = std::move(arrayy<int>(2));
+
+    return 0;
+}
