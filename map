@@ -1,0 +1,32 @@
+
+#include <iostream>
+using namespace std;
+#include <map>
+#include <string>
+
+class mlass
+{
+public:
+    mlass()
+    {
+        map<string,string> countryCityMap;
+
+        countryCityMap["USA"] = "Washington";
+        countryCityMap["Armenia"] = "Yerevan";
+        countryCityMap["England"] = "London";
+        countryCityMap["Germany"] = "Berlin";
+        countryCityMap["Russia"] = "Moscow";
+
+        for (const pair<string,string> & pair : countryCityMap)
+        {
+            cout << pair.first << " - " << pair.second << endl;
+        }
+    }
+};
+
+
+
+int main()
+{
+    mlass obj;
+}
