@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+#include <map>
+
+class A
+{
+private:
+	int a;
+	int b;
+public:
+	A(){}
+	A(int a){}
+
+
+	int operator () (int b) const {
+		return a + b;
+	}
+
+	bool operator==(const A& e) const {
+		return a == e.a && b == e.b;
+	}
+	~A(){}
+};
+
+
+
+int main()
+{ 
+	A obj;
+	map<string, A> myMap = {
+	{"ban", A(1)},
+	{"baner", A(3)},
+	{"banerr", A(5)}
+	};
+
+}
