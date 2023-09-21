@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+
 template <typename T>
 class vector
 {
@@ -22,6 +23,7 @@ public:
     {
         this->size = obj.size;
         arr = new T[size];
+        this->capacity = obj.capacity;
     }
 
     vector& operator=(const vector& obj)
@@ -30,7 +32,9 @@ public:
         {
             delete[] arr;
             this->size = obj.size;
+            this->capacity = obj.capacity;
             arr = new T[size];
+
         }
         return *this;
     }
@@ -39,8 +43,10 @@ public:
     {
         size = obj.size;
         arr = obj.arr;
+        capacity = obj.capacity;
         obj.size = 0;
         obj.arr = nullptr;
+        obj.capacity = 0;
     }
 
     vector& operator=(vector&& obj) noexcept
@@ -51,6 +57,7 @@ public:
             size = obj.size;
             arr = obj.arr;
             obj.size = 0;
+            obj.capacity = 0;
             obj.arr = nullptr;
         }
         return *this;
